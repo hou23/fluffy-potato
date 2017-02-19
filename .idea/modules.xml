@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/fluffy-potato.iml" filepath="$PROJECT_DIR$/.idea/modules/fluffy-potato.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/fluffy-potato_main.iml" filepath="$PROJECT_DIR$/.idea/modules/fluffy-potato_main.iml" group="fluffy-potato" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/fluffy-potato_test.iml" filepath="$PROJECT_DIR$/.idea/modules/fluffy-potato_test.iml" group="fluffy-potato" />
+    </modules>
+  </component>
+</project>
