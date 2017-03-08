@@ -1,4 +1,4 @@
-package com.marshall.test.lambda;
+package com.marshall.Java8InAction.lambda;
 
 /**
  * Created by yaojie.hou on 2017/3/1.
@@ -6,6 +6,13 @@ package com.marshall.test.lambda;
 public class Apple {
     private int weight = 0;
     private String color = "";
+
+    public Apple() {
+    }
+
+    public Apple(int weight) {
+        this.weight = weight;
+    }
 
     public Apple(int weight, String color) {
         this.weight = weight;

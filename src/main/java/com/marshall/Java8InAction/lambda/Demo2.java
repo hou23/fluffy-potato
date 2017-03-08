@@ -1,4 +1,4 @@
-package com.marshall.test.lambda;
+package com.marshall.Java8InAction.lambda;
 
 import java.util.Arrays;
 import java.util.List;

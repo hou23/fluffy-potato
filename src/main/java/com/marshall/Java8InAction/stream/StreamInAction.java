@@ -1,0 +1,58 @@
+package com.marshall.Java8InAction.stream;
+
+
+import com.marshall.Java8InAction.domain.Trader;
+import com.marshall.Java8InAction.domain.Transaction;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.Set;
+
+import static java.util.Comparator.comparing;
+import static java.util.stream.Collectors.toList;
+import static java.util.stream.Collectors.toSet;
+
+/**
+ * Created by yaojie.hou on 2017/3/8.
+ * <p>
+ * 5.5实践
+ */
+public class StreamInAction {
+    public static void main(String[] args) {
+        Trader raoul = new Trader("Raoul", "Cambridge");
+        Trader mario = new Trader("Mario", "Milan");
+        Trader alan = new Trader("Alan", "Cambridge");
+        Trader brian = new Trader("Brian", "Cambridge");
+
+        List<Transaction> transactions = Arrays.asList(
+                new Transaction(brian, 2011, 300),
+                new Transaction(raoul, 2012, 1000),
+                new Transaction(raoul, 2011, 400),
+                new Transaction(mario, 2012, 710),
+                new Transaction(mario, 2012, 700),
+                new Transaction(alan, 2012, 950)
+        );
+
+        // 找出2011年发生的所有交易，并按交易额正序排序
+        List<Transaction> l1 = transactions.stream().filter(t -> 2011 == t.getYear()).sorted(comparing(Transaction::getValue)).collect(toList());
+        // [{Trader:Brian in Cambridge, year: 2011, value:300}, {Trader:Raoul in Cambridge, year: 2011, value:400}]
+        System.out.println(l1);
+
+        // 交易员都在哪些城市工作过
+        List<String> l2 = transactions.stream().map(t -> t.getTrader().getCity()).distinct().collect(toList());
+        Set<String> s2 = transactions.stream().map(t -> t.getTrader().getCity()).collect(toSet());
+        // [Cambridge, Milan]
+        System.out.println(l2);
+        System.out.println(s2);
+
+        // 查找所有来自剑桥的交易员，并按姓名排序
+        List<Trader> l3 = transactions.stream().map(Transaction::getTrader).filter(trader -> trader.getCity().equals("Cambridge")).distinct().sorted(comparing(Trader::getName)).collect(toList());
+        // [Trader:Alan in Cambridge, Trader:Brian in Cambridge, Trader:Raoul in Cambridge]
+        System.out.println(l3);
+
+        // 返回所有交易员的姓名字符串，按字母顺序排序
+        String s4 = transactions.stream().map(transaction -> transaction.getTrader().getName()).distinct().sorted().reduce("", (n1, n2) -> n1 + n2);
+        // AlanBrianMarioRaoul
+        System.out.println(s4);
+    }
+}

@@ -1,4 +1,4 @@
-package com.marshall.test.lambda;
+package com.marshall.Java8InAction.lambda;
 
 import java.util.Arrays;
 import java.util.Comparator;
@@ -14,6 +14,5 @@ public class SortDemo {
                 new Apple(120, "red"));
         list.sort(Comparator.comparing(Apple::getWeight));
         System.out.println(list);
-
     }
 }
