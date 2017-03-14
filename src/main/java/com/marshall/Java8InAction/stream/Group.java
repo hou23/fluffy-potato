@@ -1,0 +1,56 @@
+package com.marshall.Java8InAction.stream;
+
+import com.marshall.Java8InAction.domain.Dish;
+
+import java.util.*;
+import java.util.Map;
+
+import static com.marshall.Java8InAction.domain.Dish.menu;
+import static java.util.stream.Collectors.*;
+
+/**
+ * Created by yaojie.hou on 2017/3/14.
+ *
+ * 分组（group）和分区（partition）
+ */
+public class Group {
+    public static void main(String[] args) {
+        //根据已有方法分组
+        Map<Dish.Type, List<Dish>> dishedByType = menu.stream().collect(groupingBy(Dish::getType));
+        //{OTHER=[french fries, rice, season fruit, pizza], MEAT=[pork, beef, chicken], FISH=[prawns, salmon]}
+        System.out.println(dishedByType);
+
+        //根据自定义方法分组
+        Map<String, List<Dish>> dishesByCaloriesLevel = menu.stream().collect(groupingBy(d -> {
+            if (d.getCalories() <= 400) {
+                return "diet";
+            } else if (d.getCalories() <= 700) {
+                return "normal";
+            } else {
+                return "fat";
+            }
+        }));
+        //{normal=[beef, french fries, pizza, salmon], fat=[pork], diet=[chicken, rice, season fruit, prawns]}
+        System.out.println(dishesByCaloriesLevel);
+
+        //多级分组
+        Map<Dish.Type, Map<String, List<Dish>>> dishedByTypeCaloricLevel = menu.stream().collect(groupingBy(Dish::getType, groupingBy(d -> {
+            if (d.getCalories() <= 400) {
+                return "diet";
+            } else if (d.getCalories() <= 700) {
+                return "normal";
+            } else {
+                return "fat";
+            }
+        })));
+        //{OTHER={normal=[french fries, pizza], diet=[rice, season fruit]}, MEAT={normal=[beef], fat=[pork], diet=[chicken]}, FISH={normal=[salmon], diet=[prawns]}}
+        System.out.println(dishedByTypeCaloricLevel);
+        
+        //groupingBy的第二个参数还可以传递其它收集器
+        Map<Dish.Type, Long> typesCount = menu.stream().collect(groupingBy(Dish::getType, counting()));
+        //{OTHER=4, MEAT=3, FISH=2}
+        System.out.println(typesCount);
+
+        menu.stream().collect(groupingBy(Dish::getType), collectingAndThen(maxBy(Dish::getCalories), ))
+    }
+}

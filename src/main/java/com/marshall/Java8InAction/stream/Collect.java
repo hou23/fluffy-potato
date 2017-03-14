@@ -32,8 +32,11 @@ public class Collect {
         System.out.println(mostCaloriesDish);
 
         Integer totalCalories = menu.stream().collect(summingInt(Dish::getCalories));
+        //这种方法避免了自动装箱
+        int totalCalories1 = menu.stream().mapToInt(Dish::getCalories).sum();
         //4300
         System.out.println(totalCalories);
+        System.out.println(totalCalories1);
 
         Double avgCalories = menu.stream().collect(averagingInt(Dish::getCalories));
         //477.77777777777777
@@ -55,6 +58,7 @@ public class Collect {
         Optional<Dish> mostCalorieDish = menu.stream().collect(reducing((d1, d2) -> d1.getCalories() > d2.getCalories() ? d1 : d2));
         //Optional[pork]
         System.out.println(mostCalorieDish);
+
     }
 
     public static class Transaction {
