@@ -6,6 +6,7 @@ import java.util.*;
 import java.util.Map;
 
 import static com.marshall.Java8InAction.domain.Dish.menu;
+import static java.util.Comparator.comparingInt;
 import static java.util.stream.Collectors.*;
 
 /**
@@ -51,6 +52,16 @@ public class Group {
         //{OTHER=4, MEAT=3, FISH=2}
         System.out.println(typesCount);
 
-        menu.stream().collect(groupingBy(Dish::getType), collectingAndThen(maxBy(Dish::getCalories), ))
+        //把收集器返回的结果转换为另外一种类型
+        Map<Dish.Type, Dish> mostCaloricByType = menu.stream().collect(
+                groupingBy(Dish::getType, collectingAndThen(
+                        maxBy(comparingInt(Dish::getCalories)), Optional::get)));
+        //{OTHER=pizza, MEAT=pork, FISH=salmon}
+        System.out.println(mostCaloricByType);
+
+        Map<Dish.Type, Integer> totalCaloriesByType = menu.stream().collect(
+                groupingBy(Dish::getType, summingInt(Dish::getCalories)));
+        //{OTHER=1550, MEAT=1900, FISH=850}
+        System.out.println(totalCaloriesByType);
     }
 }
