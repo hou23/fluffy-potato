@@ -11,8 +11,8 @@ import static java.util.stream.Collectors.*;
 
 /**
  * Created by yaojie.hou on 2017/3/14.
- *
- * 分组（group）和分区（partition）
+ * <p>
+ * 分组（group）
  */
 public class Group {
     public static void main(String[] args) {
@@ -46,7 +46,7 @@ public class Group {
         })));
         //{OTHER={normal=[french fries, pizza], diet=[rice, season fruit]}, MEAT={normal=[beef], fat=[pork], diet=[chicken]}, FISH={normal=[salmon], diet=[prawns]}}
         System.out.println(dishedByTypeCaloricLevel);
-        
+
         //groupingBy的第二个参数还可以传递其它收集器
         Map<Dish.Type, Long> typesCount = menu.stream().collect(groupingBy(Dish::getType, counting()));
         //{OTHER=4, MEAT=3, FISH=2}
@@ -63,5 +63,17 @@ public class Group {
                 groupingBy(Dish::getType, summingInt(Dish::getCalories)));
         //{OTHER=1550, MEAT=1900, FISH=850}
         System.out.println(totalCaloriesByType);
+
+        Map<Dish.Type, Set<String>> caloricLevelByType = menu.stream().collect(groupingBy(Dish::getType, mapping(d -> {
+            if (d.getCalories() <= 400) {
+                return "diet";
+            } else if (d.getCalories() <= 700) {
+                return "normal";
+            } else {
+                return "fat";
+            }
+        }, toCollection(HashSet::new))));
+        //{OTHER=[normal, diet], MEAT=[normal, fat, diet], FISH=[normal, diet]}
+        System.out.println(caloricLevelByType);
     }
 }
