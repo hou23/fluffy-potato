@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
  * <p>
  * map和flatMap
  */
-public class Map {
+public class Map<S, O> {
     public static void main(String[] args) {
         // 使用flatMap能将流中的每一个元素都转换成另一个流
         List<String> words = Arrays.asList("Hello", "World");

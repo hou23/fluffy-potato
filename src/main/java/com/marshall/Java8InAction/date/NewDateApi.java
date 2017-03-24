@@ -1,8 +1,7 @@
 package com.marshall.Java8InAction.date;
 
 import java.time.*;
-import java.time.temporal.ChronoField;
-import java.time.temporal.ChronoUnit;
+import java.time.temporal.*;
 
 /**
  * Created by yaojie.hou on 2017/3/21.
@@ -46,5 +45,40 @@ public class NewDateApi {
 		System.out.println(date.with(ChronoField.YEAR, 2018));
 		System.out.println(date.plusMonths(11));
 		System.out.println(date.plus(11, ChronoUnit.MONTHS));
+
+		LocalDate testLocalDate = LocalDate.of(2014, 3, 18);
+		testLocalDate = testLocalDate.with(ChronoField.MONTH_OF_YEAR, 9);
+		testLocalDate = testLocalDate.plusYears(2).minusDays(10);
+		testLocalDate.withYear(2011);
+		System.out.println(testLocalDate);
+
+		//使用TemporalAdjuster
+		LocalDate adjusterDate = LocalDate.of(2017, 3, 23);
+		System.out.println(adjusterDate.with(TemporalAdjusters.nextOrSame(DayOfWeek.SUNDAY)));
+		System.out.println(adjusterDate.with(TemporalAdjusters.lastDayOfMonth()));
+
+		LocalDate nextWorkingDayDate = LocalDate.of(2017, 3, 23);
+		System.out.println(nextWorkingDayDate.with(new nextWorkingDay()));
+
+		TemporalAdjusters.ofDateAdjuster();
+	}
+}
+
+/**
+ * 自定义的temporalAdjuster
+ */
+class nextWorkingDay implements TemporalAdjuster{
+
+	@Override
+	public Temporal adjustInto(Temporal temporal) {
+		DayOfWeek dow = DayOfWeek.of(temporal.get(ChronoField.DAY_OF_WEEK));
+		int dayToAdd = 1;
+		if (dow == DayOfWeek.FRIDAY) {
+			// 增加3天
+			dayToAdd = 3;
+		} else if (dow == DayOfWeek.SATURDAY) {
+			dayToAdd = 2;
+		}
+		return temporal.plus(dayToAdd, ChronoUnit.DAYS);
 	}
 }
