@@ -60,7 +60,6 @@ public class NewDateApi {
 		LocalDate nextWorkingDayDate = LocalDate.of(2017, 3, 23);
 		System.out.println(nextWorkingDayDate.with(new nextWorkingDay()));
 
-		TemporalAdjusters.ofDateAdjuster();
 	}
 }
 
