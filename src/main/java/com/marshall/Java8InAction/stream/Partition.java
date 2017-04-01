@@ -2,9 +2,9 @@ package com.marshall.Java8InAction.stream;
 
 import com.marshall.Java8InAction.domain.Dish;
 
-import javax.crypto.Cipher;
-import java.util.*;
+import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.IntStream;
 
 import static com.marshall.Java8InAction.domain.Dish.menu;
@@ -51,9 +51,14 @@ public class Partition {
 				IntStream.rangeClosed(2, 20).boxed().collect(partitioningBy(Partition::isPrime));
 		//{false=[4, 6, 8, 9, 10, 12, 14, 15, 16, 18, 20], true=[2, 3, 5, 7, 11, 13, 17, 19]}
 		System.out.println(partitionPrimes);
+
+		// 使用自定义的累加器实现区分质数和非质数
+		Map<Boolean, List<Integer>> partitonPrimesByMyCollector = IntStream.rangeClosed(2, 10).boxed().collect(MyCollectors.isPrime());
+		// {false=[4, 6, 8, 9, 10], true=[2, 3, 5, 7]}
+		System.out.println(partitonPrimesByMyCollector);
 	}
 
-	private static boolean isPrime(int candidate){
+	public static boolean isPrime(int candidate){
     	int candidateRoot = (int) Math.sqrt(candidate);
 		return IntStream.rangeClosed(2, candidateRoot).noneMatch(i -> candidate % i == 0);
 	}

@@ -4,7 +4,6 @@ package com.marshall.Java8InAction.stream;
 import com.marshall.Java8InAction.domain.Dish;
 
 import java.util.*;
-import java.util.Map;
 
 import static com.marshall.Java8InAction.domain.Dish.menu;
 import static java.util.stream.Collectors.*;
@@ -59,7 +58,9 @@ public class Collect {
         //Optional[pork]
         System.out.println(mostCalorieDish);
 
-    }
+		List<Dish> dishList = menu.stream().collect(new MyCollectors.ToListCollector<>());
+		System.out.println(dishList);
+	}
 
     public static class Transaction {
         private final Currency currency;

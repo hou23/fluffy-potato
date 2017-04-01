@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
  * <p>
  * map和flatMap
  */
-public class Map<S, O> {
+public class MapFlatMap<S, O> {
     public static void main(String[] args) {
         // 使用flatMap能将流中的每一个元素都转换成另一个流
         List<String> words = Arrays.asList("Hello", "World");
@@ -33,5 +33,10 @@ public class Map<S, O> {
         List<int[]> pairs2 = numbers1.stream().flatMap(i -> numbers2.stream().filter(j -> (i + j) % 3 == 0).map(j -> new int[]{i, j})).collect(Collectors.toList());
         // [[1,5],[2,4]]
         System.out.println(JSON.toJSONString(pairs2));
-    }
+
+        List<String> list = Arrays.asList("H", "e", "l", "l", "o");
+
+		String collect = list.stream().collect(Collectors.joining(","));
+		System.out.println(collect);
+	}
 }

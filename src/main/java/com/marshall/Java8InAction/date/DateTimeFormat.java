@@ -23,9 +23,12 @@ public class DateTimeFormat {
 
 		// 将String解析为LocalDate对象
 		LocalDate date2 = LocalDate.parse("2017-03-27", DateTimeFormatter.ISO_LOCAL_DATE);
-
+		System.out.println(date2);
+		//DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("yyyy-MM");
+		//String parse = LocalDate.parse("2017-03", DateTimeFormatter.ISO_LOCAL_DATE).toString();
+		//System.out.println(parse);
 		// 使用自定义的格式创建DateTimeFormatter
-		DateTimeFormatter dateTimeFormatter1 = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+		DateTimeFormatter dateTimeFormatter1 = DateTimeFormatter.ofPattern("yyyy年MM月dd日");
 		String format3 = date1.format(dateTimeFormatter1);
 		System.out.println(format3);
 
@@ -42,6 +45,10 @@ public class DateTimeFormat {
 				.appendText(ChronoField.YEAR)
 				.parseCaseInsensitive()
 				.toFormatter(Locale.ITALIAN);
+
+		DateTimeFormatter myFormatter = DateTimeFormatter.ofPattern("yyyy年MM月", Locale.CHINA);
+		LocalDate parse = LocalDate.parse("2017-03-27", myFormatter);
+		System.out.println(parse);
 
 		ZoneId romeZone = ZoneId.of("Europe/Rome");
 		// 为时间点添加时区信息

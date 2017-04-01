@@ -75,5 +75,10 @@ public class Group {
         }, toCollection(HashSet::new))));
         //{OTHER=[normal, diet], MEAT=[normal, fat, diet], FISH=[normal, diet]}
         System.out.println(caloricLevelByType);
-    }
+
+		Map<Dish.Type, List<Dish>> collect = menu.stream().collect(groupingBy(Dish::getType));
+		List<Dish> meat = collect.get(Dish.Type.MEAT);
+		System.out.println(meat);
+
+	}
 }
