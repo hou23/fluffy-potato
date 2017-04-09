@@ -4,6 +4,7 @@ import java.util.Spliterator;
 import java.util.function.Consumer;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
+import java.util.stream.StreamSupport;
 
 /**
  * Created by yaojie.hou on 2017/4/5.
@@ -16,11 +17,14 @@ public class WordCount {
 				"mi ritrovai in una selva oscura" +
 				" ché la dritta via era  smarrita ";
 		System.out.println("Found " + countWordsIteratively(SENTENCE) + " Words");
-		Stream<Character> stream = IntStream.range(0, SENTENCE.length()).mapToObj(SENTENCE::charAt);
-		System.out.println("Found " + countWords(stream) + " Words");
+		//Stream<Character> stream = IntStream.range(0, SENTENCE.length()).mapToObj(SENTENCE::charAt);
+		//System.out.println("Found " + countWords(stream) + " Words");
 		// 并行流结果不正确，因为拆分为子部分时，原始的String在任意位置拆分，有时一个词会被分为两个词
 		//System.out.println("Found " + countWords(stream.parallel()) + " Words");
-	}
+        Spliterator<Character> spliterator = new WordCounterSpliterator(SENTENCE);
+        Stream<Character> spliteratorStream = StreamSupport.stream(spliterator, true);
+        System.out.println("Found " + countWords(spliteratorStream) + " Words");
+    }
 
 	public static int countWordsIteratively (String s) {
 		int counter = 0;
@@ -72,7 +76,8 @@ public class WordCount {
 		}
 	}
 
-	class WordCounterSpliterator implements Spliterator<Character> {
+	// 实现spliterator的单词计数器，可并行执行
+    static class WordCounterSpliterator implements Spliterator<Character> {
 
 		private final String string;
 		private int currentChar = 0;
@@ -96,18 +101,28 @@ public class WordCount {
 				// 返回null表示要解析的String已经足够小，可以顺序处理
 				return null;
 			}
-			// todo
+			// 将拆分位置设定为要解析的string的中间
+			for (int splitPos = currentSize / 2 + currentChar; splitPos < string.length(); splitPos++) {
+				// 将拆分位置前进到下一个空格
+				if (Character.isWhitespace(string.charAt(splitPos))) {
+					// 创建一个新的WordCounterSpliterator来解析string从开始到拆分位置的部分
+					Spliterator<Character> spliterator = new WordCounterSpliterator(string.substring(currentChar, splitPos));
+					// 将这个WordCounter的起始位置设置为拆分位置
+					currentChar = splitPos;
+					return spliterator;
+				}
+			}
 			return null;
 		}
 
 		@Override
 		public long estimateSize() {
-			return 0;
+			return string.length() - currentChar;
 		}
 
 		@Override
 		public int characteristics() {
-			return 0;
+			return ORDERED + SIZED + SUBSIZED + NONNULL + IMMUTABLE;
 		}
 	}
 }
