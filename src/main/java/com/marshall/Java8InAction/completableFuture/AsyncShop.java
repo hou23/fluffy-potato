@@ -6,6 +6,8 @@ import java.util.concurrent.Future;
 
 /**
  * Created by yaojie.hou on 2017/4/24.
+ *
+ * 两种异步方法示例, 推荐使用工厂方法创建(getPriceAsyncByFactory)
  */
 public class AsyncShop {
 

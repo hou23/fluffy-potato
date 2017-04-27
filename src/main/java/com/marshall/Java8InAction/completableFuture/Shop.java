@@ -37,4 +37,7 @@ public class Shop {
 		}
 	}
 
+	public String getName() {
+		return name;
+	}
 }
