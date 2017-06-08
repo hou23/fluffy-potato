@@ -13,7 +13,7 @@ import java.util.stream.Stream;
 public class Intro {
 	public static void main(String[] args) {
 		//配置线程池，推荐不做修改
-		System.setProperty("java.util.concurrent.ForkJoinPool.common.parallelism", "2");
+		System.setProperty("java.util.ArtConcurrentBook.ForkJoinPool.common.parallelism", "2");
 
 		//测试求和并行和顺序的性能
 		//System.out.println("Sequential sum done in: " + measureSumPerf(Intro::sequentialSum, 10000000) + " msecs");//368ms
