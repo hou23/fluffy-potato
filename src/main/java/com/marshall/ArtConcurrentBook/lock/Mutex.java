@@ -76,6 +76,6 @@ public class Mutex implements Lock {
 
 	@Override
 	public Condition newCondition() {
-		return newCondition();
+		return sync.newCondition();
 	}
 }
