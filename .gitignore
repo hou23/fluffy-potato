@@ -17,3 +17,4 @@ out/
 .idea/
 gradlew
 gradlew.bat
+*.iml
