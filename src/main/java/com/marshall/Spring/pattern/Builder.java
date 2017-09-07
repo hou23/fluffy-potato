@@ -8,11 +8,13 @@ package com.marshall.Spring.pattern;
 public class Builder {
 	public static void main(String[] args) {
 		// 建设者模式
-		Writer.WriterBuilder builder = new Writer.WriterBuilder();
+		WriterBuilder builder = new WriterBuilder();
 		Writer writer = builder.writer(new Writer()).setName("L").setCity("Detroit").getWriter();
 		System.out.println(writer);
 
 		// 工厂模式
-		System.out.println(Writer.createWriter("L"));
+		System.out.println(Writer.createWriter("china"));
+
+		// 抽象工厂模式
 	}
 }
