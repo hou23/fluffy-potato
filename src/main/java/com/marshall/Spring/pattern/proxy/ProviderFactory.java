@@ -18,6 +18,11 @@ public abstract class ProviderFactory {
 
 		// 动态代理
 		Class<FontProvider> targetClass = FontProvider.class;
+		/**
+		 * 参数1：代理类的类加载器
+		 * 参数2：代理类要实现的接口
+		 * 参数3：需要传入一个InvocationHandler
+		 */
 		return (FontProvider) Proxy.newProxyInstance(targetClass.getClassLoader(),
 				new Class[] {targetClass},
 				new CachedProviderHandler(new FontProviderFromDisk()));
