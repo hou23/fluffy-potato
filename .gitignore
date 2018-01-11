@@ -18,3 +18,4 @@ out/
 gradlew
 gradlew.bat
 *.iml
+.gradle/
