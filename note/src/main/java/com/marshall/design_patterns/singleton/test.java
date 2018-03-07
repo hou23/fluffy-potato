@@ -1,14 +1,10 @@
 package com.marshall.design_patterns.singleton;
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
 import java.lang.reflect.Constructor;
 
 /**
  * Created by yaojie.hou on 2017/12/6.
  */
-@RestController
 public class test {
 
 
@@ -60,7 +56,6 @@ public class test {
 		Singleton_enum.INSTANCE.doSomething();
 	}
 
-	@RequestMapping("singletonConfig")
 	public String singletonConfig() {
 		String url = Singleton_config.CONFIG.getUrl();
 		return url;

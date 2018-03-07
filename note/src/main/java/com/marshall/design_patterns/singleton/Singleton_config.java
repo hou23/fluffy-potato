@@ -1,11 +1,8 @@
 package com.marshall.design_patterns.singleton;
 
-import org.springframework.boot.context.properties.ConfigurationProperties;
-
 /**
  * Created by yaojie.hou on 2017/12/7.
  */
-@ConfigurationProperties(prefix = "singleton")
 public enum Singleton_config {
 
 	CONFIG;
