@@ -13,6 +13,7 @@ buildscript {
 
 apply plugin: 'java'
 apply plugin: 'eclipse'
+apply plugin: 'idea'
 apply plugin: 'org.springframework.boot'
 
 jar {
@@ -42,6 +43,6 @@ dependencies {
 
     testCompile('org.springframework.boot:spring-boot-starter-test')
 
-    apply plugin: 'idea'
+
 //    optional("org.springframework.boot:spring-boot-configuration-processor")
 }
