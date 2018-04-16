@@ -1,0 +1,17 @@
+
+
+allprojects {
+    group = 'com.marshall'
+    version = '0.0.1'
+}
+
+subprojects {
+//    sourceCompatibility = 1.8
+
+    repositories {
+        mavenCentral()
+    }
+
+    apply plugin: 'java'
+    apply plugin: 'eclipse'
+}
