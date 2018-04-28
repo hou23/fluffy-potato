@@ -376,39 +376,43 @@ public class FalvRSAUtils {
 
 	public static void main(String[] args) throws Exception {
 
-			//Map<String, String> map = generateKeyPairMap();
-			//String publicKey = map.get("public");
-			//String privateKey = map.get("private");
-
-			//String content = "{\"openId\":\"jd-20180409174615861WIZsm\"}";
-			//String content = "{\"openId\":\"jd-20180409174615861WIZsm\", \"command\":\"123456\", \"requestId\":\"20422\"}";	// 京东
-			//String content = "{\"openId\":\"20180404140941207Dtivw\"}"; // 我
-			//String econtent = "BovzbTLOpYMC8BLfTHh75AYiR4y5h9/JWvpCTvMt7nXw70jVwCTUSxY8Ph2de4eCFqG9rloqUdBiDVktnJ9mkFFj/k2RDY7vA58zrjY+D2FtwyW8h23EoEbak2Sbu87ky4yg7OIYVT0pmJkfqnOb7FM8lMLw4yULb8hu7VrRs/I=";
-			////String econtent = "RWU4VkZSQW5FMmp2Y2I2cFp2N3pCZ0xyY1QyUG1wblR3eU1FKzNrWUZZRVpWeURlUXlwaFJteHpVNFZ2S1FOUXlMZ2dRR2FaVHA1RTFYdzBSWEhvVHR3S1NXVTNscmJPS3phQ0o4UEJWV0NYMGtWd2F6allFeFNrMktueHVSQldJWHkrTTFacnYxRGpKZldqbVdOM0M5RFdoNHNlK1l6eExTM2tHSzFlbW44PQ==";
-			//byte[] encryptData = null;
-			//byte[] decryptData = null;
-			//
-			//
-			//String privateKey1 ="MIICdgIBADANBgkqhkiG9w0BAQEFAASCAmAwggJcAgEAAoGBAJh/NS8YQWNeIG/Gu/2bsILHJA+iZyRgo9DvoHgt5IBkSXgn2nuQsRXu7SFdYm7xIdtPjHoRpwt9uoDINCo9DpGdv0hpHW7LjolvcLnNjhdJ8n40w4H6kIbPLbTfDnACidi48dTuGIX/Ka0QDgmEniGDX92WrJZvydMWV/P9ZsaBAgMBAAECgYBiswqIFanUl4pk7fqkdQz0R9GmMNWS7N16EG4K+qEHHGGU3C6DhS2oZYCi9J8N8RGZsU3Zf+1e+ZwpV+qzX9s6DSEdXj+v5KFgvTNpH3VZfm4VcjNAcc5Sce/C832Qt4ThLIpcr/J34FPbEd14LwLxwpY6Dx3n0lO30/uDFJxHxQJBAPHLf34Q5mB0/+3JPmtbGKf0bJczhDe6gwFb2uyIL8yDlpgKZO9YEY6JeajjmRLaBvasRknZjoAne2loJkWC1p8CQQChdLPEqfzFc+0DZP62fdnZTwVwxrWmmSELJLFaMJ7ZrjYARJK25PUewiKN18Xxng1rarXu68tVhOOi5eAHWu7fAkEAosJ74I1ZtiYrvJGRncxlTXFfw2vfHXBEDR8av8tweXc+YLvmc6JRtyPdLA2AlcsDkvomGkIDBUsObMa5tGK9OwJAZ0iEh1ZGwPk7sWQ2HP+9EGqgjFhRc9WZcctzOMLJm276VImJYT5uH9MIz7wsgDgfVYvZ/pEQbhConlh3S707+QJAMR7Y5RpxlFDgRPcDf0yjgE9nJDxJsqBvcRkQ4DhCodayauLS4y7yD+dinNCPvfO6Vn1YI8EDD73tOXmptIthUg==";
-			//String publicKey1 = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCYfzUvGEFjXiBvxrv9m7CCxyQPomckYKPQ76B4LeSAZEl4J9p7kLEV7u0hXWJu8SHbT4x6EacLfbqAyDQqPQ6Rnb9IaR1uy46Jb3C5zY4XSfJ+NMOB+pCGzy203w5wAonYuPHU7hiF/ymtEA4JhJ4hg1/dlqyWb8nTFlfz/WbGgQIDAQAB";
-			// //公钥加密，私钥解密
-			////encryptData = publicEncrypt(publicKey1, content.getBytes("UTF-8"));
-			////System.out.println("加密串:" + base64Encode(encryptData));
-			////String s = publicEncrypt(publicKey1, content);
-			////System.out.println(base64Encode(s.getBytes()));
-			//byte[] decode = base64Decode(econtent);
-			//byte[] res = privateDecrypt(privateKey1, decode);
-			//System.out.println(new String(res, "UTF-8"));
-
-		jd();
-
+		//jd();
+		qixin();
 	}
 
+	/**
+	 * 京东-叮咚音箱
+	 * @throws Exception
+	 */
 	private static void jd() throws Exception {
-		String content = "{\"openId\":\"jd-20180409174615861WIZsm\", \"command\":\"123123\", \"requestId\":\"20422\"}";	// 京东
+		String content = "{\"openId\":\"jd-20180409174615861WIZsm\", \"command\":\"123123\", \"requestId\":\"20422\"}";
 		String pri = "MIICdgIBADANBgkqhkiG9w0BAQEFAASCAmAwggJcAgEAAoGBANSYQW5MuKLdas+XH4Xqq7/5uVX0UBi0C+eKXJ1C6/Tu1+0YiZmTGp1avTR20XolH+/jYXpTPbBgwVJlCJ5tqcYyx//1zalp9WqmNm0owcZfl4id7HamMVnyIi7hMn2NSgqU3ZfDnQCgD2vdUslVRfhgNUycZsJ9zocRUVR3K+kDAgMBAAECgYBRN51/kuXSqn4csmJDmeRlYfTRBpX26gnGOhCpr6BPIVPyazZeKlm3lavEuEPMwxQRZC+gON7PXBde7+Q8Ci8aK4yShD6BF92mhDPyh4yROQ1HgqKmNzM+7/CFmu20+KFR/8dj/j8b5SLpSrglOOyC+0vbgtRlq6aleZHdDkfcgQJBAO8ZTSrTzAc9S/U88TAc6B9RzIMO7XK2LFifvyOqHtmxhqRHG+RVGVCmuYlsdNVgdEoVLgufsWkgAkJaL3Zq+0MCQQDjn1cJa0kpg4JQTc0e90CTyLMJTsHmR1jMPZjcNEA/mhVl0nm6iri7wO7NJuaU4XUo+1UROSvO35Dxc08WRx9BAkEAttHy1j9yL0roTJEXnoFL377NEJ0WZHL1P6KOJTgMNMpwOCaDJjkHjUqebXy3bPw+jvLY7Vxi7A3kjFWnGvW8PwJANAyZkHPR9QY3ZDmGMBCF2cVI+1XhDNE/wuRK8f+YuXJ4diIc58UU3QoPESZWD7FGYyqllxylodaJhEzDxupYgQJAWvKTTKaoFnxjWVsKQT94hmsEUiVgcYoLBxlRrm8C4eiUA75AWJg7Iy4thtrMoxJ4K/eDHp+IkL4wQrDCkDM5BA==";
 		String pub = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDUmEFuTLii3WrPlx+F6qu/+blV9FAYtAvnilydQuv07tftGImZkxqdWr00dtF6JR/v42F6Uz2wYMFSZQiebanGMsf/9c2pafVqpjZtKMHGX5eInex2pjFZ8iIu4TJ9jUoKlN2Xw50AoA9r3VLJVUX4YDVMnGbCfc6HEVFUdyvpAwIDAQAB";
+
+		// 私钥加密
 		String encrypt = privateEncrypt(pri, content);
 		System.out.println(URLEncoder.encode(encrypt, "utf-8"));
+	}
+
+	/**
+	 * 启信宝
+	 * @throws Exception
+	 */
+	private static void qixin() throws Exception {
+		String content = "{\"mch_id\":\"20180428101102783ZJNGP\"}";
+		String encryptContent = "BLCMQ72bNeaNlV6sgUP37A47DxM0UAJ+Qz+tRpDI0FO+hj9YgmsKg2kHWTZnj+RZgOjgVajGG3Azw63B7Nu9+uJkMbOe+Fd7tmAd23XLc15VuDOPElVGpA8SJ2MXzx9bHbOzSEqvrauZtk3ZlEu/QGXXCUiyL4ibzO1dK1hk/XM=";
+		String pri = "MIICdgIBADANBgkqhkiG9w0BAQEFAASCAmAwggJcAgEAAoGBAJh/NS8YQWNeIG/Gu/2bsILHJA+iZyRgo9DvoHgt5IBkSXgn2nuQsRXu7SFdYm7xIdtPjHoRpwt9uoDINCo9DpGdv0hpHW7LjolvcLnNjhdJ8n40w4H6kIbPLbTfDnACidi48dTuGIX/Ka0QDgmEniGDX92WrJZvydMWV/P9ZsaBAgMBAAECgYBiswqIFanUl4pk7fqkdQz0R9GmMNWS7N16EG4K+qEHHGGU3C6DhS2oZYCi9J8N8RGZsU3Zf+1e+ZwpV+qzX9s6DSEdXj+v5KFgvTNpH3VZfm4VcjNAcc5Sce/C832Qt4ThLIpcr/J34FPbEd14LwLxwpY6Dx3n0lO30/uDFJxHxQJBAPHLf34Q5mB0/+3JPmtbGKf0bJczhDe6gwFb2uyIL8yDlpgKZO9YEY6JeajjmRLaBvasRknZjoAne2loJkWC1p8CQQChdLPEqfzFc+0DZP62fdnZTwVwxrWmmSELJLFaMJ7ZrjYARJK25PUewiKN18Xxng1rarXu68tVhOOi5eAHWu7fAkEAosJ74I1ZtiYrvJGRncxlTXFfw2vfHXBEDR8av8tweXc+YLvmc6JRtyPdLA2AlcsDkvomGkIDBUsObMa5tGK9OwJAZ0iEh1ZGwPk7sWQ2HP+9EGqgjFhRc9WZcctzOMLJm276VImJYT5uH9MIz7wsgDgfVYvZ/pEQbhConlh3S707+QJAMR7Y5RpxlFDgRPcDf0yjgE9nJDxJsqBvcRkQ4DhCodayauLS4y7yD+dinNCPvfO6Vn1YI8EDD73tOXmptIthUg==";
+		String pub = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCYfzUvGEFjXiBvxrv9m7CCxyQPomckYKPQ76B4LeSAZEl4J9p7kLEV7u0hXWJu8SHbT4x6EacLfbqAyDQqPQ6Rnb9IaR1uy46Jb3C5zY4XSfJ+NMOB+pCGzy203w5wAonYuPHU7hiF/ymtEA4JhJ4hg1/dlqyWb8nTFlfz/WbGgQIDAQAB";
+
+		// 公钥加密
+		byte[] encryptData = publicEncrypt(pub, content.getBytes("UTF-8"));
+		System.out.println("加密串:" + base64Encode(encryptData));
+
+		// 私钥解密
+		//byte[] decryptData = privateDecrypt(pri, encryptData);
+		//byte[] decryptData = privateDecrypt(pri, base64Decode(encryptContent));
+		String s = privateDecrypt(pri, encryptContent);
+		System.out.println(s);
+		//System.out.println("解密串:" + new String(decryptData, "UTF-8"));
 	}
 }
