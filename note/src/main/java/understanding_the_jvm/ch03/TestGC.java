@@ -4,6 +4,7 @@ package understanding_the_jvm.ch03;
  * @author yaojie.hou
  * @create 2018/5/7
  */
+@SuppressWarnings("unused")
 public class TestGC {
 
 	public static void main(String[] args) {
@@ -86,5 +87,27 @@ public class TestGC {
 		allocation4 = new byte[4 * _1MB];
 		allocation4 = null;
 		allocation4 = new byte[4 * _1MB];
+	}
+
+	/**
+	 * 空间分配担保, 版本要求: JDK6 Update24
+	 *
+	 * VM参数：-Xms20M -Xmx20M -Xmn10M -XX:+PrintGCDetails -XX:SurvivorRatio=8 -XX:-HandlePromotionFailure=false
+	 *
+	 * -XX:-HandlePromotionFailure 设置是否允许担保失败
+	 */
+	private static void testHandlePromotion() {
+		byte[] allocation1, allocation2, allocation3, allocation4, allocation5, allocation6, allocation7;
+		allocation1 = new byte[2 * _1MB];
+		allocation2 = new byte[2 * _1MB];
+		allocation3 = new byte[2 * _1MB];
+		allocation1 = null;
+		allocation4 = new byte[2 * _1MB];
+		allocation5 = new byte[2 * _1MB];
+		allocation6 = new byte[2 * _1MB];
+		allocation4 = null;
+		allocation5 = null;
+		allocation6 = null;
+		allocation7 = new byte[2 * _1MB];
 	}
 }

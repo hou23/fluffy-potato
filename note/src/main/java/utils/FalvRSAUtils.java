@@ -374,10 +374,61 @@ public class FalvRSAUtils {
 		return false;
 	}
 
+	public static String decryptByPublicKey(String encryptedData, String publicKey) throws Exception {
+		byte[] bytes = decryptByPublicKey(base64Decode(encryptedData), publicKey);
+		return new String(bytes, "UTF-8");
+	}
+
+	/**
+	 * <p>
+	 * 公钥解密
+	 * </p>
+	 *
+	 * @param encryptedData
+	 *            已加密数据
+	 * @param publicKey
+	 *            公钥(BASE64编码)
+	 * @return
+	 * @throws Exception
+	 */
+	public static byte[] decryptByPublicKey(byte[] encryptedData, String publicKey) throws Exception {
+		byte[] keyBytes = base64Decode(publicKey);
+		X509EncodedKeySpec x509KeySpec = new X509EncodedKeySpec(keyBytes);
+		KeyFactory keyFactory = KeyFactory.getInstance(KEY_ALGORITHM);
+		Key publicK = keyFactory.generatePublic(x509KeySpec);
+		Cipher cipher = Cipher.getInstance(keyFactory.getAlgorithm());
+		cipher.init(Cipher.DECRYPT_MODE, publicK);
+		int inputLen = encryptedData.length;
+		ByteArrayOutputStream out = new ByteArrayOutputStream();
+		int offSet = 0;
+		byte[] cache;
+		int i = 0;
+		// 对数据分段解密
+		while (inputLen - offSet > 0) {
+			if (inputLen - offSet > MAX_DECRYPT_BLOCK) {
+				cache = cipher.doFinal(encryptedData, offSet, MAX_DECRYPT_BLOCK);
+			} else {
+				cache = cipher.doFinal(encryptedData, offSet, inputLen - offSet);
+			}
+			out.write(cache, 0, cache.length);
+			i++;
+			offSet = i * MAX_DECRYPT_BLOCK;
+		}
+		byte[] decryptedData = out.toByteArray();
+		out.close();
+		return decryptedData;
+	}
+
+	public static String decryptByPrivateKey(String encryptedData, String privateKey) throws Exception {
+		byte[] bytes = decryptByPrivateKey(base64Decode(encryptedData), privateKey);
+		return new String(bytes, "UTF-8");
+	}
+
 	public static void main(String[] args) throws Exception {
 
-		//jd();
-		qixin();
+		jd();
+		//qixin();
+		//fulu();
 	}
 
 	/**
@@ -385,13 +436,19 @@ public class FalvRSAUtils {
 	 * @throws Exception
 	 */
 	private static void jd() throws Exception {
-		String content = "{\"openId\":\"jd-20180409174615861WIZsm\", \"command\":\"123123\", \"requestId\":\"20422\"}";
+		//String content = "{\"openId\":\"jd-20180409174615861WIZsm\", \"command\":\"123123\", \"requestId\":\"20422\"}";
+		String content = "{\"phone\":\"18721277770\"}";
+		String econtent = "tiw/nQcojkslyxCK4/9aUq1Refyrg0sd4xLf8Cj5DPNYU3WIQHJx3eC609p6qPHAGDqkq90eZpau75jlRu2S3m5lipGSzBh0vwaFY/j4mnuw80tnw6Qyu+cXjTluaH0XBVFPfS1Lf6FHhl4gmpPq59KqAjV50juByHRujpMr66E=";
 		String pri = "MIICdgIBADANBgkqhkiG9w0BAQEFAASCAmAwggJcAgEAAoGBANSYQW5MuKLdas+XH4Xqq7/5uVX0UBi0C+eKXJ1C6/Tu1+0YiZmTGp1avTR20XolH+/jYXpTPbBgwVJlCJ5tqcYyx//1zalp9WqmNm0owcZfl4id7HamMVnyIi7hMn2NSgqU3ZfDnQCgD2vdUslVRfhgNUycZsJ9zocRUVR3K+kDAgMBAAECgYBRN51/kuXSqn4csmJDmeRlYfTRBpX26gnGOhCpr6BPIVPyazZeKlm3lavEuEPMwxQRZC+gON7PXBde7+Q8Ci8aK4yShD6BF92mhDPyh4yROQ1HgqKmNzM+7/CFmu20+KFR/8dj/j8b5SLpSrglOOyC+0vbgtRlq6aleZHdDkfcgQJBAO8ZTSrTzAc9S/U88TAc6B9RzIMO7XK2LFifvyOqHtmxhqRHG+RVGVCmuYlsdNVgdEoVLgufsWkgAkJaL3Zq+0MCQQDjn1cJa0kpg4JQTc0e90CTyLMJTsHmR1jMPZjcNEA/mhVl0nm6iri7wO7NJuaU4XUo+1UROSvO35Dxc08WRx9BAkEAttHy1j9yL0roTJEXnoFL377NEJ0WZHL1P6KOJTgMNMpwOCaDJjkHjUqebXy3bPw+jvLY7Vxi7A3kjFWnGvW8PwJANAyZkHPR9QY3ZDmGMBCF2cVI+1XhDNE/wuRK8f+YuXJ4diIc58UU3QoPESZWD7FGYyqllxylodaJhEzDxupYgQJAWvKTTKaoFnxjWVsKQT94hmsEUiVgcYoLBxlRrm8C4eiUA75AWJg7Iy4thtrMoxJ4K/eDHp+IkL4wQrDCkDM5BA==";
 		String pub = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDUmEFuTLii3WrPlx+F6qu/+blV9FAYtAvnilydQuv07tftGImZkxqdWr00dtF6JR/v42F6Uz2wYMFSZQiebanGMsf/9c2pafVqpjZtKMHGX5eInex2pjFZ8iIu4TJ9jUoKlN2Xw50AoA9r3VLJVUX4YDVMnGbCfc6HEVFUdyvpAwIDAQAB";
 
 		// 私钥加密
 		String encrypt = privateEncrypt(pri, content);
 		System.out.println(URLEncoder.encode(encrypt, "utf-8"));
+
+		// 公钥解密
+		String decrypt = decryptByPublicKey(econtent, pub);
+		System.out.println(decrypt);
 	}
 
 	/**
@@ -414,5 +471,17 @@ public class FalvRSAUtils {
 		String s = privateDecrypt(pri, encryptContent);
 		System.out.println(s);
 		//System.out.println("解密串:" + new String(decryptData, "UTF-8"));
+	}
+
+	/**
+	 * 福禄网络
+	 */
+	private static void fulu() throws Exception {
+		String content = "{\"phone\":\"18721277770\", \"activationCode\":[\"testx20180510\"]}";
+		String pub = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCA0lwFck42zbAEqSEIkYBj2k9K39l/EYGfbOE/Efx5Wax75izM6PyTh0/Uy+gJngCjn25w2MhgbUHFixdm+DVUZr4Vpr0rr9FYd76fsppdCDIHPND6IvpCye9wWs+PZ7WoPZ3MTis55nfwluYeuY0sf1+bgFWqqiazB4M5f6hzLQIDAQAB";
+		String pri = "MIICdQIBADANBgkqhkiG9w0BAQEFAASCAl8wggJbAgEAAoGBAIDSXAVyTjbNsASpIQiRgGPaT0rf2X8RgZ9s4T8R/HlZrHvmLMzo/JOHT9TL6AmeAKOfbnDYyGBtQcWLF2b4NVRmvhWmvSuv0Vh3vp+yml0IMgc80Poi+kLJ73Baz49ntag9ncxOKznmd/CW5h65jSx/X5uAVaqqJrMHgzl/qHMtAgMBAAECgYB9sEFWkxNbB08RDQ+M86IISu2IiWYFQ8hsC2iuB9eFcwgGjyrw9vXQ33n1jsmj8ISBIMI52lmPM6qzmiVIMy6b9m/ryTj0uA4ckreZp3EzKcYPjMco+rNdysj3dW7axlqW1yWKCoqg9JAom8t4ULXR/FJhoSXxXFHPuvDRc2oaIQJBANc48qG1zrsMSpzgqk7y/X3l6E+QnceV1P+5qx0u+tmme8gO3h0TgwfDvSXuqHVI/4F5bHaLp7YxlP92NhAE8BkCQQCZOqtpnIMeOjMvVF3UgspKmYdIy0oa9SC1aJIcDl2ARQA2fh1djrv+ZUtCOH/czDCqn57/9UOW5+rXxQcaOG41AkAVlsLP8drQ7IS3g9nRnZJMBLnu8UTCdoctN8SwYrwLBSY5hTRGmmR0bPAWVABV84KdzD5TDeM+5W5aydLWfIhRAkAMQsGMhdWICagm1V1cr8p4BajpjjqzxYGEgoWOcSfSJ7NIqPa4kb9BL+HBvrucc0pBnNwgJwPtg0krUryqwHExAkBKgF25hg2tMWu2WovZ1EIuqBND/3oTMNfVHz0s3lJWu34sylf1sR3A9b1Hvphl7iMdtphKdBrYGT1mv04FUx5K";
+
+		String encrypt = publicEncrypt(pub, content);
+		System.out.println(encrypt);
 	}
 }
