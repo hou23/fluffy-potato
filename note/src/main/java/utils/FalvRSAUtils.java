@@ -1,11 +1,14 @@
 package utils;
 
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import org.apache.commons.codec.binary.Base64;
 
 import javax.crypto.Cipher;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.security.*;
 import java.security.spec.InvalidKeySpecException;
@@ -424,21 +427,48 @@ public class FalvRSAUtils {
 		return new String(bytes, "UTF-8");
 	}
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	public static void main(String[] args) throws Exception {
 
-		jd();
+		//jd();
 		//qixin();
 		//fulu();
+		ecar();
 	}
 
 	/**
 	 * 京东-叮咚音箱
+	 * 测试openId: jd-20180408113115551kRGsZ
+	 * 生产openId: jd-20180525155157100fwYul
+	 *
 	 * @throws Exception
 	 */
 	private static void jd() throws Exception {
-		//String content = "{\"openId\":\"jd-20180409174615861WIZsm\", \"command\":\"123123\", \"requestId\":\"20422\"}";
+
+		// 支付参数
+		//String content = "{\"openId\":\"jd-20180408113115551kRGsZ\", \"command\":\"123456\", \"requestId\":\"20636\"}";
+		// 注册参数
 		String content = "{\"phone\":\"18721277770\"}";
-		String econtent = "tiw/nQcojkslyxCK4/9aUq1Refyrg0sd4xLf8Cj5DPNYU3WIQHJx3eC609p6qPHAGDqkq90eZpau75jlRu2S3m5lipGSzBh0vwaFY/j4mnuw80tnw6Qyu+cXjTluaH0XBVFPfS1Lf6FHhl4gmpPq59KqAjV50juByHRujpMr66E=";
+		String econtent = "tiw%2FnQcojkslyxCK4%2F9aUq1Refyrg0sd4xLf8Cj5DPNYU3WIQHJx3eC609p6qPHAGDqkq90eZpau75jlRu2S3m5lipGSzBh0vwaFY%2Fj4mnuw80tnw6Qyu%2BcXjTluaH0XBVFPfS1Lf6FHhl4gmpPq59KqAjV50juByHRujpMr66E%3D";
 		String pri = "MIICdgIBADANBgkqhkiG9w0BAQEFAASCAmAwggJcAgEAAoGBANSYQW5MuKLdas+XH4Xqq7/5uVX0UBi0C+eKXJ1C6/Tu1+0YiZmTGp1avTR20XolH+/jYXpTPbBgwVJlCJ5tqcYyx//1zalp9WqmNm0owcZfl4id7HamMVnyIi7hMn2NSgqU3ZfDnQCgD2vdUslVRfhgNUycZsJ9zocRUVR3K+kDAgMBAAECgYBRN51/kuXSqn4csmJDmeRlYfTRBpX26gnGOhCpr6BPIVPyazZeKlm3lavEuEPMwxQRZC+gON7PXBde7+Q8Ci8aK4yShD6BF92mhDPyh4yROQ1HgqKmNzM+7/CFmu20+KFR/8dj/j8b5SLpSrglOOyC+0vbgtRlq6aleZHdDkfcgQJBAO8ZTSrTzAc9S/U88TAc6B9RzIMO7XK2LFifvyOqHtmxhqRHG+RVGVCmuYlsdNVgdEoVLgufsWkgAkJaL3Zq+0MCQQDjn1cJa0kpg4JQTc0e90CTyLMJTsHmR1jMPZjcNEA/mhVl0nm6iri7wO7NJuaU4XUo+1UROSvO35Dxc08WRx9BAkEAttHy1j9yL0roTJEXnoFL377NEJ0WZHL1P6KOJTgMNMpwOCaDJjkHjUqebXy3bPw+jvLY7Vxi7A3kjFWnGvW8PwJANAyZkHPR9QY3ZDmGMBCF2cVI+1XhDNE/wuRK8f+YuXJ4diIc58UU3QoPESZWD7FGYyqllxylodaJhEzDxupYgQJAWvKTTKaoFnxjWVsKQT94hmsEUiVgcYoLBxlRrm8C4eiUA75AWJg7Iy4thtrMoxJ4K/eDHp+IkL4wQrDCkDM5BA==";
 		String pub = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDUmEFuTLii3WrPlx+F6qu/+blV9FAYtAvnilydQuv07tftGImZkxqdWr00dtF6JR/v42F6Uz2wYMFSZQiebanGMsf/9c2pafVqpjZtKMHGX5eInex2pjFZ8iIu4TJ9jUoKlN2Xw50AoA9r3VLJVUX4YDVMnGbCfc6HEVFUdyvpAwIDAQAB";
 
@@ -447,6 +477,7 @@ public class FalvRSAUtils {
 		System.out.println(URLEncoder.encode(encrypt, "utf-8"));
 
 		// 公钥解密
+		econtent = URLDecoder.decode(econtent, "utf-8");
 		String decrypt = decryptByPublicKey(econtent, pub);
 		System.out.println(decrypt);
 	}
@@ -483,5 +514,27 @@ public class FalvRSAUtils {
 
 		String encrypt = publicEncrypt(pub, content);
 		System.out.println(encrypt);
+	}
+
+	/**
+	 * 翼卡车联网
+	 */
+	private static void ecar() throws Exception {
+		JSONObject json = new JSONObject();
+		json.put("openId", "e-car-hyjtest");
+		json.put("phone", "18721277770");
+		json.put("questionType", "CT007");
+		//String content = "{\"phone\":\"13509814568\",\"questionType\":\"其他\",\"openId\":\"55555\"}";
+		String content = JSON.toJSONString(json);
+		System.out.println(content);
+		String pub = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC8Z2my8Aa9U+iSFM15lWZupY2RfznTw1QqZqifhSalHHUyd9coBsZ0VOgRO8+RamcYy1jNGRdH37XYD/zzbQqT/+AqRxjEwwLKiLjSUljL/chNoB62Pg2UqY44OHtPqe2+VDSK1P7eHQSaBNdl3Awm2KVOt3sG1Qzg0PEbCdu1tQIDAQAB";
+		String pri = "MIICdQIBADANBgkqhkiG9w0BAQEFAASCAl8wggJbAgEAAoGBALxnabLwBr1T6JIUzXmVZm6ljZF/OdPDVCpmqJ+FJqUcdTJ31ygGxnRU6BE7z5FqZxjLWM0ZF0fftdgP/PNtCpP/4CpHGMTDAsqIuNJSWMv9yE2gHrY+DZSpjjg4e0+p7b5UNIrU/t4dBJoE12XcDCbYpU63ewbVDODQ8RsJ27W1AgMBAAECgYAlFC0nPDn3VOY2qcVuokqQiCB+fA2DcbPEzINvMaNTZ3BhSFid1geEqZkqmxzUv54esRZ+9uswCAUfyrW7qsAj3gqqtLaQ2ffwet2C91aZM8NhkY3yC8pfZVTaORtndpHdltQpegHarQG1Py0Bp1oiDFlO6De68tp0Xy1PF8JngQJBAN4bABUeqHHJgksr4O7ePDX+A9oVoofMvP8foqcG2Tqjv3MGxY6FYXTOYQzIhrm0XWsASCZEjEzZ+2kQ2/sivgUCQQDZJ8tz92FWkSkQI28g/xibCoeZ+4JFT0StUynBIydcU+B1aKxsFHyPg2L9VSgq9hEmSKrrHJ0ELnctVKE+kPfxAkBDTIcf3yRHJjn2sRr9BhXUfl2IbVnMMDtsSpesaKTV4dwW7Ixb/QpkrEw35WL9TiuoSnOSNN8WQk6trVAarpJJAkARbcw6hoRdelEdZnqo31COQQ4ZIcKW5YHRl3cmdTfXhTPiuH/+PLayngz34DnVGOLPe82cCTPg/gm6rawzZVdBAkAoHy7vtU0oJEKqVnsmvHXXafAizlrxy5+tUeTNugrX8zyCGrXKdK1ZrBGfMgysAU/ezlgw7Qf6eulDUE1j8SDP";
+		String sign = "lRKPBm/uGiuK5uclb/5mFE996KPsneAl4LaHc4HiWqryeyX3tJFJ2kEObWq166sU7kcC/xQaPc+9RkzSTwtKx2hqECdfjOeIGiTnnNfpZ5H4J6qqn0vPl/HwvvnyJvqoBQtMG331TINYtB+LLdSyc8D5h8VxbZgd15dXz5gmwM0=";
+
+		//sign = MyRSASignature.sign(content, pri);
+		sign = RSAUtils.sign(content.getBytes(), pri);
+		System.out.println(sign);
+		System.out.println(RSAUtils.verify(content.getBytes(), pub, sign));
+		//System.out.println(verify(content, sign, pub));
 	}
 }

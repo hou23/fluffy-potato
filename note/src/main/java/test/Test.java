@@ -1,10 +1,5 @@
 package test;
 
-import org.apache.commons.lang3.StringUtils;
-
-import java.util.HashMap;
-import java.util.Map;
-
 /**
  * Created by yaojie.hou on 2018/3/14.
  */
@@ -16,7 +11,10 @@ public class Test {
 		//String a = "3";
 		//String b = "1";
 		//System.out.println(StringUtils.isNoneBlank(a, b));
-		Map<String, String> map = new HashMap<>();
-		System.out.println(StringUtils.isBlank(map.get("a")));
+		//Map<String, String> map = new HashMap<>();
+		//System.out.println(StringUtils.isBlank(map.get("a")));
+
+		String a = null;
+		System.out.println(a.equals("234"));
 	}
 }
