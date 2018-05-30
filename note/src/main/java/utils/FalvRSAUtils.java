@@ -8,7 +8,6 @@ import org.apache.commons.codec.binary.Base64;
 import javax.crypto.Cipher;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.security.*;
 import java.security.spec.InvalidKeySpecException;
@@ -449,10 +448,10 @@ public class FalvRSAUtils {
 
 	public static void main(String[] args) throws Exception {
 
-		//jd();
+		jd();
 		//qixin();
 		//fulu();
-		ecar();
+		//ecar();
 	}
 
 	/**
@@ -465,9 +464,12 @@ public class FalvRSAUtils {
 	private static void jd() throws Exception {
 
 		// 支付参数
-		//String content = "{\"openId\":\"jd-20180408113115551kRGsZ\", \"command\":\"123456\", \"requestId\":\"20636\"}";
+		String content = "{\"openId\":\"jd-20180525155157100fwYul\", \"command\":\"123456\", \"requestId\":\"1122484\"}";
 		// 注册参数
-		String content = "{\"phone\":\"18721277770\"}";
+		//String content = "{\"phone\":\"17601290113\"}";
+		// 签约状态
+		//String content = "{\"openId\":\"jd-20180525155157100fwYul\"}";
+		//String content = "{\"openId\":\"jd-20180525155157100fwYul\", \"questionType\":\"CT007\"}";
 		String econtent = "tiw%2FnQcojkslyxCK4%2F9aUq1Refyrg0sd4xLf8Cj5DPNYU3WIQHJx3eC609p6qPHAGDqkq90eZpau75jlRu2S3m5lipGSzBh0vwaFY%2Fj4mnuw80tnw6Qyu%2BcXjTluaH0XBVFPfS1Lf6FHhl4gmpPq59KqAjV50juByHRujpMr66E%3D";
 		String pri = "MIICdgIBADANBgkqhkiG9w0BAQEFAASCAmAwggJcAgEAAoGBANSYQW5MuKLdas+XH4Xqq7/5uVX0UBi0C+eKXJ1C6/Tu1+0YiZmTGp1avTR20XolH+/jYXpTPbBgwVJlCJ5tqcYyx//1zalp9WqmNm0owcZfl4id7HamMVnyIi7hMn2NSgqU3ZfDnQCgD2vdUslVRfhgNUycZsJ9zocRUVR3K+kDAgMBAAECgYBRN51/kuXSqn4csmJDmeRlYfTRBpX26gnGOhCpr6BPIVPyazZeKlm3lavEuEPMwxQRZC+gON7PXBde7+Q8Ci8aK4yShD6BF92mhDPyh4yROQ1HgqKmNzM+7/CFmu20+KFR/8dj/j8b5SLpSrglOOyC+0vbgtRlq6aleZHdDkfcgQJBAO8ZTSrTzAc9S/U88TAc6B9RzIMO7XK2LFifvyOqHtmxhqRHG+RVGVCmuYlsdNVgdEoVLgufsWkgAkJaL3Zq+0MCQQDjn1cJa0kpg4JQTc0e90CTyLMJTsHmR1jMPZjcNEA/mhVl0nm6iri7wO7NJuaU4XUo+1UROSvO35Dxc08WRx9BAkEAttHy1j9yL0roTJEXnoFL377NEJ0WZHL1P6KOJTgMNMpwOCaDJjkHjUqebXy3bPw+jvLY7Vxi7A3kjFWnGvW8PwJANAyZkHPR9QY3ZDmGMBCF2cVI+1XhDNE/wuRK8f+YuXJ4diIc58UU3QoPESZWD7FGYyqllxylodaJhEzDxupYgQJAWvKTTKaoFnxjWVsKQT94hmsEUiVgcYoLBxlRrm8C4eiUA75AWJg7Iy4thtrMoxJ4K/eDHp+IkL4wQrDCkDM5BA==";
 		String pub = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDUmEFuTLii3WrPlx+F6qu/+blV9FAYtAvnilydQuv07tftGImZkxqdWr00dtF6JR/v42F6Uz2wYMFSZQiebanGMsf/9c2pafVqpjZtKMHGX5eInex2pjFZ8iIu4TJ9jUoKlN2Xw50AoA9r3VLJVUX4YDVMnGbCfc6HEVFUdyvpAwIDAQAB";
@@ -477,9 +479,9 @@ public class FalvRSAUtils {
 		System.out.println(URLEncoder.encode(encrypt, "utf-8"));
 
 		// 公钥解密
-		econtent = URLDecoder.decode(econtent, "utf-8");
-		String decrypt = decryptByPublicKey(econtent, pub);
-		System.out.println(decrypt);
+		//econtent = URLDecoder.decode(econtent, "utf-8");
+		//String decrypt = decryptByPublicKey(econtent, pub);
+		//System.out.println(decrypt);
 	}
 
 	/**
