@@ -1,8 +1,6 @@
 package utils;
 
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
 import org.apache.commons.codec.binary.Base64;
 
 import javax.crypto.Cipher;
@@ -448,8 +446,8 @@ public class FalvRSAUtils {
 
 	public static void main(String[] args) throws Exception {
 
-		jd();
-		//qixin();
+		//jd();
+		qixin();
 		//fulu();
 		//ecar();
 	}
@@ -489,7 +487,7 @@ public class FalvRSAUtils {
 	 * @throws Exception
 	 */
 	private static void qixin() throws Exception {
-		String content = "{\"mch_id\":\"20180428101102783ZJNGP\"}";
+		String content = "{\"mch_id\":\"20180606101102783ZJNGP\"}";
 		String encryptContent = "BLCMQ72bNeaNlV6sgUP37A47DxM0UAJ+Qz+tRpDI0FO+hj9YgmsKg2kHWTZnj+RZgOjgVajGG3Azw63B7Nu9+uJkMbOe+Fd7tmAd23XLc15VuDOPElVGpA8SJ2MXzx9bHbOzSEqvrauZtk3ZlEu/QGXXCUiyL4ibzO1dK1hk/XM=";
 		String pri = "MIICdgIBADANBgkqhkiG9w0BAQEFAASCAmAwggJcAgEAAoGBAJh/NS8YQWNeIG/Gu/2bsILHJA+iZyRgo9DvoHgt5IBkSXgn2nuQsRXu7SFdYm7xIdtPjHoRpwt9uoDINCo9DpGdv0hpHW7LjolvcLnNjhdJ8n40w4H6kIbPLbTfDnACidi48dTuGIX/Ka0QDgmEniGDX92WrJZvydMWV/P9ZsaBAgMBAAECgYBiswqIFanUl4pk7fqkdQz0R9GmMNWS7N16EG4K+qEHHGGU3C6DhS2oZYCi9J8N8RGZsU3Zf+1e+ZwpV+qzX9s6DSEdXj+v5KFgvTNpH3VZfm4VcjNAcc5Sce/C832Qt4ThLIpcr/J34FPbEd14LwLxwpY6Dx3n0lO30/uDFJxHxQJBAPHLf34Q5mB0/+3JPmtbGKf0bJczhDe6gwFb2uyIL8yDlpgKZO9YEY6JeajjmRLaBvasRknZjoAne2loJkWC1p8CQQChdLPEqfzFc+0DZP62fdnZTwVwxrWmmSELJLFaMJ7ZrjYARJK25PUewiKN18Xxng1rarXu68tVhOOi5eAHWu7fAkEAosJ74I1ZtiYrvJGRncxlTXFfw2vfHXBEDR8av8tweXc+YLvmc6JRtyPdLA2AlcsDkvomGkIDBUsObMa5tGK9OwJAZ0iEh1ZGwPk7sWQ2HP+9EGqgjFhRc9WZcctzOMLJm276VImJYT5uH9MIz7wsgDgfVYvZ/pEQbhConlh3S707+QJAMR7Y5RpxlFDgRPcDf0yjgE9nJDxJsqBvcRkQ4DhCodayauLS4y7yD+dinNCPvfO6Vn1YI8EDD73tOXmptIthUg==";
 		String pub = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCYfzUvGEFjXiBvxrv9m7CCxyQPomckYKPQ76B4LeSAZEl4J9p7kLEV7u0hXWJu8SHbT4x6EacLfbqAyDQqPQ6Rnb9IaR1uy46Jb3C5zY4XSfJ+NMOB+pCGzy203w5wAonYuPHU7hiF/ymtEA4JhJ4hg1/dlqyWb8nTFlfz/WbGgQIDAQAB";
@@ -501,8 +499,8 @@ public class FalvRSAUtils {
 		// 私钥解密
 		//byte[] decryptData = privateDecrypt(pri, encryptData);
 		//byte[] decryptData = privateDecrypt(pri, base64Decode(encryptContent));
-		String s = privateDecrypt(pri, encryptContent);
-		System.out.println(s);
+		//String s = privateDecrypt(pri, encryptContent);
+		//System.out.println(s);
 		//System.out.println("解密串:" + new String(decryptData, "UTF-8"));
 	}
 
@@ -522,13 +520,15 @@ public class FalvRSAUtils {
 	 * 翼卡车联网
 	 */
 	private static void ecar() throws Exception {
-		JSONObject json = new JSONObject();
-		json.put("openId", "e-car-hyjtest");
-		json.put("phone", "18721277770");
-		json.put("questionType", "CT007");
-		//String content = "{\"phone\":\"13509814568\",\"questionType\":\"其他\",\"openId\":\"55555\"}";
-		String content = JSON.toJSONString(json);
-		System.out.println(content);
+		//JSONObject json = new JSONObject();
+		//json.put("openId", "e-car-hyjtest");
+		//json.put("phone", "18721277770");
+		//json.put("questionType", "CT007");
+
+		String content = "";
+		content = "{\"phone\":\"18721277770\",\"questionType\":\"CT003\",\"openId\":\"15813314520\",\"orderId\":\"1180601024009336\"}";
+		//content = JSON.toJSONString(json);
+		//content = "118052504275819760619";
 		String pub = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC8Z2my8Aa9U+iSFM15lWZupY2RfznTw1QqZqifhSalHHUyd9coBsZ0VOgRO8+RamcYy1jNGRdH37XYD/zzbQqT/+AqRxjEwwLKiLjSUljL/chNoB62Pg2UqY44OHtPqe2+VDSK1P7eHQSaBNdl3Awm2KVOt3sG1Qzg0PEbCdu1tQIDAQAB";
 		String pri = "MIICdQIBADANBgkqhkiG9w0BAQEFAASCAl8wggJbAgEAAoGBALxnabLwBr1T6JIUzXmVZm6ljZF/OdPDVCpmqJ+FJqUcdTJ31ygGxnRU6BE7z5FqZxjLWM0ZF0fftdgP/PNtCpP/4CpHGMTDAsqIuNJSWMv9yE2gHrY+DZSpjjg4e0+p7b5UNIrU/t4dBJoE12XcDCbYpU63ewbVDODQ8RsJ27W1AgMBAAECgYAlFC0nPDn3VOY2qcVuokqQiCB+fA2DcbPEzINvMaNTZ3BhSFid1geEqZkqmxzUv54esRZ+9uswCAUfyrW7qsAj3gqqtLaQ2ffwet2C91aZM8NhkY3yC8pfZVTaORtndpHdltQpegHarQG1Py0Bp1oiDFlO6De68tp0Xy1PF8JngQJBAN4bABUeqHHJgksr4O7ePDX+A9oVoofMvP8foqcG2Tqjv3MGxY6FYXTOYQzIhrm0XWsASCZEjEzZ+2kQ2/sivgUCQQDZJ8tz92FWkSkQI28g/xibCoeZ+4JFT0StUynBIydcU+B1aKxsFHyPg2L9VSgq9hEmSKrrHJ0ELnctVKE+kPfxAkBDTIcf3yRHJjn2sRr9BhXUfl2IbVnMMDtsSpesaKTV4dwW7Ixb/QpkrEw35WL9TiuoSnOSNN8WQk6trVAarpJJAkARbcw6hoRdelEdZnqo31COQQ4ZIcKW5YHRl3cmdTfXhTPiuH/+PLayngz34DnVGOLPe82cCTPg/gm6rawzZVdBAkAoHy7vtU0oJEKqVnsmvHXXafAizlrxy5+tUeTNugrX8zyCGrXKdK1ZrBGfMgysAU/ezlgw7Qf6eulDUE1j8SDP";
 		String sign = "lRKPBm/uGiuK5uclb/5mFE996KPsneAl4LaHc4HiWqryeyX3tJFJ2kEObWq166sU7kcC/xQaPc+9RkzSTwtKx2hqECdfjOeIGiTnnNfpZ5H4J6qqn0vPl/HwvvnyJvqoBQtMG331TINYtB+LLdSyc8D5h8VxbZgd15dXz5gmwM0=";

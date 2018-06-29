@@ -5,3 +5,4 @@ spring:
     port: 5672
     username: marshall
     password: wshyj1314
+    virtual-host:
