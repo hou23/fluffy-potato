@@ -16,6 +16,6 @@ dependencies {
     compile group: 'com.alibaba', name: 'fastjson', version: '1.2.46'
     compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.7'
     compile group: 'commons-codec', name: 'commons-codec', version: '1.11'
-
+    compile group: 'io.netty', name: 'netty-all', version: '4.1.25.Final'
     compile group: 'junit', name: 'junit', version: '4.12'
 }
